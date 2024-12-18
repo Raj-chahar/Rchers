@@ -33,7 +33,7 @@ export const FloatingDock = ({
     </>
   );
 };
-
+// Mobile Dock
 const FloatingDockMobile = ({
   items,
   className,
@@ -42,12 +42,15 @@ const FloatingDockMobile = ({
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
+
   return (
-    <div className={cn("relative block md:hidden", className)}>
+    <div className={cn("fixed block md:hidden my-5 bottom-20", className)}>
       <AnimatePresence>
         {open && (
           <motion.div
-            layoutId="nav"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
             className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-2"
           >
             {items.map((item, idx) => (
@@ -61,9 +64,7 @@ const FloatingDockMobile = ({
                 exit={{
                   opacity: 0,
                   y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
+                  transition: { delay: idx * 0.05 },
                 }}
                 transition={{ delay: (items.length - 1 - idx) * 0.05 }}
               >
@@ -71,6 +72,7 @@ const FloatingDockMobile = ({
                   href={item.href}
                   key={item.title}
                   className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
+                  aria-label={item.title}
                 >
                   <div className="h-4 w-4">{item.icon}</div>
                 </Link>
@@ -80,6 +82,7 @@ const FloatingDockMobile = ({
         )}
       </AnimatePresence>
       <button
+        aria-label="Toggle Mobile Navbar"
         onClick={() => setOpen(!open)}
         className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center"
       >
@@ -88,7 +91,7 @@ const FloatingDockMobile = ({
     </div>
   );
 };
-
+// Desktop Dock
 const FloatingDockDesktop = ({
   items,
   className,
@@ -96,13 +99,14 @@ const FloatingDockDesktop = ({
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
 }) => {
-  let mouseX = useMotionValue(Infinity);
+  const mouseX = useMotionValue(Infinity);
+
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden md:flex h-16 gap-4 items-end  rounded-2xl bg-gray-50 dark:bg-neutral-900 px-4 pb-3",
+        "z-50 w-[15rem] justify-center mx-auto hidden md:flex h-16 gap-4 items-end rounded-2xl bg-gray-50 dark:bg-neutral-900 px-4 pb-3 fixed bottom-4",
         className
       )}
     >
@@ -112,6 +116,7 @@ const FloatingDockDesktop = ({
     </motion.div>
   );
 };
+
 
 function IconContainer({
   mouseX,
@@ -173,7 +178,7 @@ function IconContainer({
         style={{ width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative"
+        className=" aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative"
       >
         <AnimatePresence>
           {hovered && (

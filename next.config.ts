@@ -18,7 +18,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enables static export mode
-  output: "export",
+  // output: "export",
   
   // Enables React Strict Mode
   reactStrictMode: true,
