@@ -4,7 +4,7 @@ import { BackgroundBeamsWithCollision } from "./ui/background-beams-with-collisi
 
 export function Hero() {
   return (
-    <div className="h-full w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
+    <div className="h-full w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md" id="Home">
       {/* Background Beams with Sparkles */}
       <BackgroundBeamsWithCollision>
         <div className="relative w-full h-full flex flex-col items-center justify-center">

@@ -1,12 +1,15 @@
-"use client";
-
 import React from 'react'
 import { Navbar } from "./components/navbar";
 import { Hero } from "./components/hero";
 import { Organize } from "./components/organize";
-import { Dock } from "./components/dock";
 import { Events } from './components/Events';
+import { Footer } from './components/Footer';
+import { TextHover } from './components/TextHover';
+import { About } from './components/About';
 
+export const metadata = {
+  title: "Rchers",
+}
 export default function ComingSoon() {
 
 
@@ -14,9 +17,11 @@ export default function ComingSoon() {
     <div>
       <Navbar/>
       <Hero/>
-      <Organize/>
       <Events/>
-      <Dock/>
+      <Organize/>
+      <TextHover/>
+      <About/>
+      <Footer/>
     </div>
   );
 }
